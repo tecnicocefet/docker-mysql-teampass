@@ -1,0 +1,20 @@
+#Criar o container
+docker run -d \
+--mount type=volume,src=meumysql,dst=/var/lib/mysql \
+ -e MYSQL_ROOT_PASSWORD=root \
+ --name mysql \
+ --hostname mysql \
+ mysql:5.6.43
+
+#Acessar o container
+docker exec -it mysql bash
+
+#Acessar o Mysql
+mysql -uroot -proot
+
+#Criar tablespace e usuário
+CREATE DATABASE teampass_db;
+CREATE USER 'teampass_user'@'localhost' IDENTIFIED BY '123456';
+GRANT ALL PRIVILEGES ON teampass_db.* TO 'teampass_user'@'%' IDENTIFIED BY '123456';
+FLUSH PRIVILEGES;
+exit
